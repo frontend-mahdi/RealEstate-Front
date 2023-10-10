@@ -1,7 +1,20 @@
 import { markers } from "@/data/markers";
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Paper,
+  Stack,
+  Typography,
+} from "@mui/material";
+import { grey } from "@mui/material/colors";
 import mapboxgl, { LngLatLike } from "mapbox-gl";
 import { FC, useEffect, useRef } from "react";
+import BasicModal from "./Modal";
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZmFrZXVzZXJnaXRodWIiLCJhIjoiY2pwOGlneGI4MDNnaDN1c2J0eW5zb2ZiNyJ9.mALv0tCpbYUPtzT7YysA2g";
 
@@ -93,8 +106,10 @@ const Map: FC<MapType> = () => {
   });
   const toggleSidebar = () => {
     const panel = panelRef.current;
-    const collapsed = panel?.classList.toggle("translate-x-[262px]");
 
+    const collapsed = panel?.style.right === "-262px";
+    // const collapsed = panel?.classList.toggle("translate-x-[262px]");
+    if (panel) panel.style.right = !collapsed ? "-262px" : "0";
     map.current?.easeTo({
       // padding:padding,
       padding: {
@@ -110,21 +125,82 @@ const Map: FC<MapType> = () => {
   return (
     <>
       <div ref={mapContainerRef} className="map-container"></div>
-      {/* translate-x-[262px] */}
-      <div className=" px-3 pb-3 pt-14">
-        <div
-          ref={panelRef}
-          className="bg-white absolute h-[100vh] w-[262px] right-0 top-0 flex flex-col justify-center items-center transition-all text-gray-400 "
+
+      <Paper
+        ref={panelRef}
+        sx={{
+          position: "absolute",
+          right: "0",
+          top: "0",
+          height: "100vh",
+          width: "262px",
+          pt: "3rem",
+          pb: "3rem",
+          transition: "transform",
+          color: grey[400],
+        }}
+      >
+        <Stack
+          direction="column"
+          sx={{
+            paddingY: "1rem",
+            boxSizing: "border-box",
+            paddingInline: "1rem",
+            maxHeight: "calc(100vh - 6rem)",
+            overflowY: "auto",
+          }}
+          spacing={2}
         >
-          Right Sidebar
-          <div
-            className="px-2 pt-2 pb-1 absolute top-[48.5vh] -left-8 rounded-lg bg-white text-gray-700 cursor-pointer"
-            onClick={toggleSidebar}
-          >
-            &#9776;
-          </div>
-        </div>
-      </div>
+          {Array.from([1, 2, 3]).map((val, key) => (
+            <Box key={key}>
+              <Card sx={{ maxWidth: 345 }}>
+                <CardMedia
+                  sx={{ height: 100 }}
+                  image={`https://picsum.photos/300/15${key}`}
+                  title="green iguana"
+                />
+
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    Lizard
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    className="text-justify"
+                  >
+                    Lizards are a widespread group of squamate reptiles, with
+                    over 6,000 species.
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button size="small" variant="outlined">
+                    Locate
+                  </Button>
+                  <Button size="small">Learn More</Button>
+                </CardActions>
+              </Card>
+            </Box>
+          ))}
+        </Stack>
+        <BasicModal />
+
+        <Box
+          onClick={toggleSidebar}
+          sx={{
+            position: "absolute",
+            top: "48.5vh",
+            left: "-2rem",
+            padding: "6px 8px 3px",
+            borderRadius: "5px",
+            backgroundColor: grey[100],
+            color: grey[700],
+            cursor: "pointer",
+          }}
+        >
+          &#9776;
+        </Box>
+      </Paper>
     </>
   );
 };
