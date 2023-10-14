@@ -65,6 +65,6 @@ To get RealEstate up and running on your local machine:
 
 ## Contact
 
-For questions or feedback, reach out to us at your.mahdi.313.ab@gmail.com.
+For questions or feedback, reach out to us at mahdi.313.ab@gmail.com.
 
 Thank you for considering RealEstate for your travel adventures! ✈️🌴
