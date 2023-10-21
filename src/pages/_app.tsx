@@ -1,4 +1,5 @@
 import "@/app/globals.css";
+import MainLayout from "@/layouts/MainLayout";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import { ThemeProvider, createTheme } from "@mui/material";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -15,7 +16,9 @@ const App: FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <div className="layout">
       <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
+        <MainLayout>
+          <Component {...pageProps} />
+        </MainLayout>
       </ThemeProvider>
     </div>
   );

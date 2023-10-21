@@ -1,22 +1,16 @@
+import { FormInputText } from "@/components/form/FormInputText";
+import { FormInputTextArea } from "@/components/form/FormInputTextArea";
 import { Button, Paper, Typography } from "@mui/material";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
-import { FormInputText } from "./form/FormInputText";
-import { FormInputTextArea } from "./form/FormInputTextArea";
+
+export interface indexType {}
 interface IFormInput {
   title: string;
-  desc: string;
-  imgUrl: string;
 }
-const defaultValues = {
-  title: "",
-  desc: "",
-  imgUrl: "",
-};
-export const FormDemo: FC<{ closeModal: () => void }> = ({ closeModal }) => {
-  const { handleSubmit, reset, control } = useForm<IFormInput>({
-    defaultValues: defaultValues,
-  });
+
+const index: FC<indexType> = () => {
+  const { handleSubmit, reset, control } = useForm<IFormInput>();
   const onSubmit = (data: IFormInput) => console.log(data);
   return (
     <Paper
@@ -40,7 +34,6 @@ export const FormDemo: FC<{ closeModal: () => void }> = ({ closeModal }) => {
         type="button"
         onClick={() => {
           reset();
-          closeModal();
         }}
         variant={"outlined"}
       >
@@ -49,3 +42,5 @@ export const FormDemo: FC<{ closeModal: () => void }> = ({ closeModal }) => {
     </Paper>
   );
 };
+
+export default index;

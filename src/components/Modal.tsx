@@ -1,4 +1,5 @@
 import { Add } from "@mui/icons-material";
+import { Stack } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
@@ -39,8 +40,10 @@ export default function BasicModal() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box overflow="auto" height="100vh">
-          <FormDemo />
+        <Box overflow="auto" height="100vh" mt={12}>
+          <Stack direction="row" justifyContent="center" alignItems="center">
+            <FormDemo closeModal={handleClose} />
+          </Stack>
         </Box>
       </Modal>
     </Box>
